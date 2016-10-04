@@ -4,9 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "npm run standard",
+    "standard": "standard"
   },
   "keywords": [],
   "author": "Simoen Vincent <svincent@gmail.com> (https://svincent.me)",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "standard": "^8.3.0"
+  }
 }

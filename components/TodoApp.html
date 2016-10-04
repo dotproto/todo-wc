@@ -1,11 +1,11 @@
 <link rel="import" href="TodoItem.html">
 
 <template id="todo-app-template">
-  <h1>Todo App</h1>
+  <h1 id="foo">Todo App</h1>
   <ul class="todo-list">
-    <li><todo-item>a</todo-item></li>
-    <li><todo-item>b</todo-item></li>
-    <li><todo-item>c</todo-item></li>
+    <li><todo-item value="alpha"></todo-item></li>
+    <li><todo-item value="beta"></todo-item></li>
+    <li><todo-item value="gamma"></todo-item></li>
   </ul>
   <form novalidate="novalidate">
     <input class="todo-input" type="text">
@@ -13,4 +13,5 @@
   </form>
 </template>
 
+<script src="WebComponent.js"></script>
 <script src="TodoApp.js" async></script>

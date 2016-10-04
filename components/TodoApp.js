@@ -1,9 +1,11 @@
+/* global WebComponent */
 'use strict'
 
 class TodoApp extends WebComponent {
-  constructor() {
-    //# Initialize HTML element constructor
+  constructor () {
+    // # Initialize HTML element constructor
     super({ debug: true, template: 'todo-app-template' })
+    console.log('TodoApp constructor')
 
     this._form = this._root.querySelector('form')
     this._input = this._root.querySelector('.todo-input')
@@ -12,18 +14,25 @@ class TodoApp extends WebComponent {
     this.registerHandlers()
   }
 
-  registerHandlers() {
+  registerHandlers () {
     this._form.addEventListener('submit', this.onSubmit.bind(this), false)
   }
 
-  onSubmit(e) {
+  onSubmit (e) {
     e.preventDefault()
-    console.debug('submit')
+    if (this._debug) console.debug('TodoApp.onSubmit')
 
-    const newItem = this._doc.createElement('todo-item')
-    newItem.value = this._input.value
-    this._list.appendChild(newItem)
+    const listItem = this._doc.createElement('li')
+    const todo = this._doc.createElement('todo-item')
+
+    todo.value = this._input.value
+
+    listItem.appendChild(todo)
+    this._list.appendChild(listItem)
+
+    this._input.value = ''
+    this._input.focus()
   }
 }
 
-customElements.define('todo-app', TodoApp)
+WebComponent.setup('todo-app', TodoApp)
