@@ -1,17 +1,23 @@
 {
-  "name": "todo-custom",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "npm run standard",
-    "standard": "standard"
-  },
-  "keywords": [],
-  "author": "Simoen Vincent <svincent@gmail.com> (https://svincent.me)",
-  "license": "MIT",
-  "devDependencies": {
-    "standard": "^8.3.0"
-  }
+	"name": "todo-custom",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"private": true,
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"lint": "npm run jshint",
+		"jshint": "jshint components",
+		"jsh": "jshint"
+	},
+	"keywords": [],
+	"author": "Simoen Vincent <svincent@gmail.com> (https://svincent.me)",
+	"license": "MIT",
+	"dependencies": {
+		"todomvc-app-css": "^2.0.6",
+		"todomvc-common": "^1.0.2"
+	},
+	"devDependencies": {
+		"jshint": "^2.9.3"
+	}
 }
