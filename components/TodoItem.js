@@ -9,13 +9,33 @@
 			this.binding = {};
 
 			this._valEl = this._root.querySelector('[data-bind="value"]');
+			this._destroyButton = this._root.querySelector('button.destroy');
+			this._destroyButton.addEventListener('click', this.onClickDestroy.bind(this));
+
 			this.update();
 		}
 
 		update () {
 			if (this._valEl.innerText !== this.value) {
 				this._valEl.innerText = this.value || '';
+				this.dispatchUpdateEvent();
 			}
+		}
+
+		onClickDestroy(e) {
+			const eventOptions = {
+				bubbles: false,
+				cancelable: true,
+				composed: false,
+				detail: this,
+			};
+			window.dispatchEvent(new CustomEvent('todo-item-destroyed', eventOptions));
+		}
+
+		dispatchUpdateEvent() {
+			const eventConfig = { "cancelable": false, "scoped": true };
+			const event = new Event('todo-update');
+			this.dispatchEvent(event);
 		}
 
 		get value () {
@@ -43,6 +63,7 @@
 				this.removeAttribute('completed');
 			}
 		}
+
 	}
 
 	WebComponent.setup('todo-item', TodoItem);

@@ -6,7 +6,7 @@
 			super();
 
 			this._debug = debug;
-			this.debug('WebComponent: Debug enabled');
+			this.logDebug('WebComponent: Debug enabled');
 
 			// Bind the component's template to this instance
 			if (template) this.bindTemplate(template);
@@ -17,7 +17,7 @@
 			// this._main.head.appendChild(_styles.cloneNode(true));
 		}
 
-		debug (...args) {
+		logDebug (...args) {
 			if (this._debug) console.log.apply(console, args);
 		}
 
@@ -37,23 +37,24 @@
 			const instance = template.content.cloneNode(true);
 
 			this._root.appendChild(instance);
-			this.debug(this._root);
+			this.logDebug(`${this.constructor.name}.bindTemplate: Bound template to shadow root`);
+		}
+
+		//
+		attributeChangedCallback (attrName, oldVal, newVal) {
+			this.logDebug('WebComponent:attributeChangedCallback');
 		}
 
 		adoptedCallback (oldDocument, document) {
-			this.debug('WebComponent:adoptedCallback');
-		}
-
-		attributeChangedCallback (attrName, oldVal, newVal) {
-			this.debug('WebComponent:attributeChangedCallback');
+			this.logDebug('WebComponent:adoptedCallback');
 		}
 
 		disconnectedCallback () {
-			this.debug('WebComponent:disconnectedCallback');
+			this.logDebug('WebComponent:disconnectedCallback');
 		}
 
 		connectedCallback () {
-			this.debug('WebComponent:connectedCallback');
+			this.logDebug('WebComponent:connectedCallback');
 		}
 	}
 
