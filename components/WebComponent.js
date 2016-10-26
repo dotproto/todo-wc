@@ -18,9 +18,31 @@
 			this.on = this.addEventListener;
 		}
 		
-		// -------
-		// Methods
-		// -------
+		
+		// --------------
+		// Static Methods
+		// --------------
+		
+		// Finish the setup of a new WC. This includes registering the component with
+		// the DOM and setting static properties on the prototype required by the
+		// WebComponent constructor.
+		//
+		// * _doc - The document object that imported this WC
+		// * _import - The document that contains the template
+		static setup (tag, Component) {
+			// Cache references to our import script. Cribbed from
+			// https://www.html5rocks.com/en/tutorials/webcomponents/imports/
+			const proto = Component.prototype;
+			proto._doc = document;
+			proto._import = proto._doc.currentScript.ownerDocument;
+
+			// Register the element
+			customElements.define(tag, Component);
+		};
+		
+		// -----------------
+		// Prototype Methods
+		// -----------------
 
 		logDebug (...args) {
 			if (this._debug) console.log(...args);
@@ -33,7 +55,7 @@
 		bindTemplate (id) {
 			// Create an open component when in debug mode
 			const shadowOpts = {
-				mode: this._debug ? 'open' : 'closed';
+				mode: this._debug ? 'open' : 'closed',
 			};
 
 			// `attachShadow` implicitly creates `this.shadowRoot`, but that's 
@@ -66,27 +88,6 @@
 			this.logDebug('WebComponent:connectedCallback');
 		}
 	}
-
-	// ----------------------
-	// WebComponent Utilities
-	// ----------------------
-	
-	// Finish the setup of a new WC. This includes registering the component with
-	// the DOM and setting static properties on the prototype required by the
-	// WebComponent constructor.
-	//
-	// * _doc - The document object that imported this WC
-	// * _import - The document that contains the template
-	WebComponent.setup = function setup (tag, Component) {
-		// Cache references to our import script. Cribbed from
-		// https://www.html5rocks.com/en/tutorials/webcomponents/imports/
-		const proto = Component.prototype;
-		proto._doc = document;
-		proto._import = proto._doc.currentScript.ownerDocument;
-
-		// Register the element
-		customElements.define(tag, Component);
-	};
 
 	window.WebComponent = WebComponent;
 })();
